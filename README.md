@@ -30,7 +30,7 @@ Este repositório contém os pacotes compilados, firmwares originais extraídos 
 
 ### 1. Clonar o repositório ou baixar os arquivos
 ```bash
-git clone <URL_DO_SEU_REPOSITORIO>
+git clone https://github.com/jrubensas/asus-x870e-mt7927-driver.git
 cd asus-x870e-mt7927-driver
 ```
 
