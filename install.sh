@@ -86,19 +86,22 @@ echo -e "${GREEN}             INSTALACAO CONCLUIDA COM SUCESSO!                 
 echo -e "${GREEN}====================================================================${NC}"
 
 if [ "${SB_STATE}" = "enabled" ]; then
-  echo -e "\n${YELLOW}SECURE BOOT ATIVO!${NC}"
-  echo "Para que o kernel carregue os novos modulos assinados:"
-  echo "1. Reinicie o computador: 'sudo reboot'"
-  echo "2. Na inicializacao, entrara na tela azul do MokManager ('Perform MOK management')."
-  echo "3. Selecione 'Enroll MOK' -> 'Continue' -> 'Yes'."
-  echo "4. Digite a sua senha configurada (ou senha de sudo)."
-  echo "5. Selecione 'Reboot'."
+  echo -e "\n${YELLOW}SECURE BOOT DETECTADO COMO ATIVO!${NC}"
+  echo "Módulos DKMS exigem autorização quando o Secure Boot está ligado."
+  echo ""
+  echo "Opcao A (Recomendada): Desative o Secure Boot na BIOS ASUS:"
+  echo "  Boot -> Secure Boot -> OS Type: mude para 'Other OS'."
+  echo ""
+  echo "Opcao B: Autorize a chave MOK no proximo boot:"
+  echo "  1. Execute: sudo mokutil --import /var/lib/shim-signed/mok/MOK.der (crie uma senha temporaria)"
+  echo "  2. Reinicie: sudo reboot"
+  echo "  3. Na tela azul MokManager: Enroll MOK -> Continue -> Yes -> digite a senha -> Reboot."
 else
-  echo -e "\nCarregando modulos agora..."
+  echo -e "\nSecure Boot esta desativado. Carregando modulos agora..."
   modprobe -r mt7925e mt7921e btusb 2>/dev/null || true
   modprobe mt7925e 2>/dev/null || true
   modprobe btusb 2>/dev/null || true
-  echo -e "${GREEN}[OK] Modulos carregados!${NC}"
+  echo -e "${GREEN}[OK] Modulos mt7925e e btusb carregados e em execucao!${NC}"
 fi
 
 echo -e "\n${BLUE}Dica BIOS ASUS (Estabilidade Bluetooth):${NC}"
